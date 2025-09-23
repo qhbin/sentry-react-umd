@@ -21,15 +21,6 @@ export default {
     sourcemap: true,
     exports: 'auto'
   },
-  onwarn(warning, warn) {
-    // 忽略 use client 警告
-    if (warning.code === 'MODULE_LEVEL_DIRECTIVE' && 
-        warning.message.includes('use client')) {
-      return;
-    }
-    // 保持默认警告行为
-    warn(warning);
-  },
   external: [
     'react',
     'react-dom',
@@ -46,7 +37,6 @@ export default {
     commonjs(),
     babel({
       babelHelpers: 'runtime',
-      // exclude: 'node_modules/**',
       presets: [
         ['react-app', { targets: { browsers: ['> 0.5% in CN', 'last 2 versions'] } }]
       ]
