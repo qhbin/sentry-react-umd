@@ -1,8 +1,8 @@
 {
-  "name": "sentry-react-umd",
+  "name": "react-router-dom-umd",
   "version": "1.0.0",
-  "description": "sentry react umd library",
-  "main": "dist/sentry-react.umd.js",
+  "description": "react-router-dom umd library",
+  "main": "dist/react-router-dom.umd.js",
   "type": "module",
   "scripts": {
     "dev": "NODE_ENV=development rollup -c -w",
@@ -11,23 +11,24 @@
   "author": "qhbin",
   "license": "MIT",
   "keywords": [
-    "sentry",
+    "react-router-dom",
     "react",
     "umd"
   ],
   "dependencies": {
-    "@sentry/browser": "^10.12.0",
-    "@sentry/react": "^10.12.0"
+    "react-router-dom": "^7.9.1"
   },
   "devDependencies": {
-    "rollup": "^4.52.0",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
     "@babel/core": "^7.28.4",
+    "@babel/plugin-transform-runtime": "^7.28.3",
+    "@babel/runtime": "^7.28.4",
     "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-replace": "^6.0.2",
     "@rollup/plugin-terser": "^0.4.4",
     "babel-preset-react-app": "^10.1.0",
+    "rollup": "^4.52.0",
     "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-serve": "^3.0.0"
   }

@@ -1,5 +1,5 @@
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 import terser from '@rollup/plugin-terser'; // 更新导入
 import babel from '@rollup/plugin-babel';
 import replace from '@rollup/plugin-replace';
@@ -9,17 +9,26 @@ import livereload from 'rollup-plugin-livereload';
 const isProduction = process.env.NODE_ENV === 'production';
 
 export default {
-  input: './node_modules/@sentry/react/build/cjs/index.js',
+  input: './node_modules/react-router-dom/dist/index.js',
   output: {
-    file: 'dist/sentry-react.umd.js',
+    file: 'dist/react-router-dom.umd.js',
     format: 'umd',
-    name: 'SentryReact',
+    name: 'ReactRouterDOM',
     globals: {
       react: 'React',
       'react-dom': 'ReactDOM',
     },
     sourcemap: true,
-    exports: 'named'
+    exports: 'auto'
+  },
+  onwarn(warning, warn) {
+    // 忽略 use client 警告
+    if (warning.code === 'MODULE_LEVEL_DIRECTIVE' && 
+        warning.message.includes('use client')) {
+      return;
+    }
+    // 保持默认警告行为
+    warn(warning);
   },
   external: [
     'react',
@@ -36,8 +45,8 @@ export default {
     }),
     commonjs(),
     babel({
-      babelHelpers: 'bundled',
-      exclude: 'node_modules/**',
+      babelHelpers: 'runtime',
+      // exclude: 'node_modules/**',
       presets: [
         ['react-app', { targets: { browsers: ['> 0.5% in CN', 'last 2 versions'] } }]
       ]

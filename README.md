@@ -1,125 +1,124 @@
-# Sentry React UMD Bundle
+# React Router DOM UMD Bundle
 
-一个将 @sentry/react 打包成 UMD 格式的库，可以直接在浏览器中通过 `<script>` 标签引入使用。
+这是一个将 [react-router-dom](file:///Users/qiuhuibin/projects/react-router-dom-umd/node_modules/react-router-dom) 打包成 UMD 格式的项目，方便在浏览器中通过 `<script>` 标签直接使用。
 
 ## 项目介绍
 
-该项目使用 Rollup 将 @sentry/react 打包成 UMD（Universal Module Definition）格式，使得可以在不使用模块打包工具的环境中直接使用 Sentry 的 React 集成功能。
+本项目使用 Rollup 将 [react-router-dom](file:///Users/qiuhuibin/projects/react-router-dom-umd/node_modules/react-router-dom) 及其依赖打包成一个单独的 UMD 文件，可以在不使用 npm 或模块打包工具的情况下直接在浏览器中使用。
 
-## 安装
+## 安装依赖
 
 ```bash
-# 克隆项目
-git clone <repository-url>
-
-# 安装依赖
-pnpm install
-
-# 开发模式
-pnpm dev
-
-# 生产构建
-pnpm build
+npm install
 ```
+
+## 开发模式
+
+启动开发服务器，支持热重载：
+
+```bash
+npm run dev
+```
+
+这将在 `http://localhost:3000` 启动一个开发服务器。
+
+## 构建生产版本
+
+构建压缩后的生产版本：
+
+```bash
+npm run build
+```
+
+构建后的文件将输出到 [dist/react-router-dom.umd.js](file:///Users/qiuhuibin/projects/react-router-dom-umd/dist/react-router-dom.umd.js)。
 
 ## 使用方法
 
-### 浏览器直接引入
+在 HTML 文件中直接引入：
 
 ```html
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sentry React UMD Example</title>
+    <title>React Router DOM UMD Example</title>
 </head>
 <body>
     <div id="root"></div>
     
-    <!-- 引入依赖 -->
+    <!-- 引入 React 和 ReactDOM -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     
-    <!-- 引入 Sentry React UMD 包 -->
-    <script src="dist/sentry-react.umd.js"></script>
+    <!-- 引入打包好的 React Router DOM -->
+    <script src="dist/react-router-dom.umd.js"></script>
     
+    <!-- 使用 -->
     <script>
-        // 使用 Sentry React
-        const { init, withErrorBoundary } = SentryReact;
+        const { BrowserRouter, Routes, Route, Link } = ReactRouterDom;
         
-        // 初始化 Sentry
-        init({
-            dsn: "YOUR_DSN_HERE",
-            // 其他配置...
-        });
+        function App() {
+            return React.createElement(
+                BrowserRouter,
+                null,
+                React.createElement(
+                    "div",
+                    null,
+                    React.createElement(
+                        "nav",
+                        null,
+                        React.createElement(Link, { to: "/" }, "Home"),
+                        " | ",
+                        React.createElement(Link, { to: "/about" }, "About")
+                    ),
+                    React.createElement(
+                        Routes,
+                        null,
+                        React.createElement(Route, { path: "/", element: React.createElement("h1", null, "Home Page") }),
+                        React.createElement(Route, { path: "/about", element: React.createElement("h1", null, "About Page") })
+                    )
+                )
+            );
+        }
         
-        // 使用 withErrorBoundary 等功能
-        // ...
+        ReactDOM.render(React.createElement(App), document.getElementById('root'));
     </script>
 </body>
 </html>
 ```
 
-### 构建产物
-
-构建后会生成以下文件：
-- dist/sentry-react.umd.js - UMD 格式的主文件
-- dist/sentry-react.umd.js.map - Source map 文件（用于调试）
-
-## 开发
-
-### 目录结构
+## 项目结构
 
 ```
-.
-├── dist/                 # 构建产物目录
-├── rollup.config.js      # Rollup 配置文件
-├── package.json          # 项目配置文件
-└── README.md            # 项目说明文档
+├── dist/                    # 构建输出目录
+├── node_modules/           # 依赖包
+├── package.json            # 项目配置
+├── rollup.config.js        # Rollup 配置文件
+└── index.html              # 示例 HTML 文件
 ```
 
-### 命令
+## 技术栈
 
-```bash
-# 开发模式（带热重载）
-pnpm dev
-
-# 生产构建（压缩代码）
-pnpm build
-```
-
-开发模式下会启动一个本地服务器（默认端口 3000），并自动打开浏览器。修改代码后会自动重新构建并刷新页面。
-
-## 配置说明
-
-### Rollup 配置
-
-- 入口文件：@sentry/react 的 CJS 构建版本
-- 输出格式：UMD
-- 全局变量名：`SentryReact`
-- 外部依赖：`react` 和 `react-dom`（不会被打包进最终文件）
-- 浏览器环境兼容性：支持市场份额大于 0.5% 的中国浏览器及各浏览器最新 2 个版本
-
-### 环境变量替换
-
-构建过程中会将 `process.env.NODE_ENV` 替换为 `"production"`，以启用生产环境优化。
+- [Rollup](https://rollupjs.org/) - 模块打包工具
+- [React Router DOM](https://reactrouter.com/) - React 路由库
+- Babel - JavaScript 编译器
+- Terser - JavaScript 压缩工具
 
 ## 注意事项
 
-1. 使用时需要确保在引入 sentry-react.umd.js 之前先引入 React 和 ReactDOM
-2. React 和 ReactDOM 不会被打包进最终文件，需要单独引入
-3. 构建产物仅适用于浏览器环境，不支持 Node.js 环境
-4. 该包导出 @sentry/react 的所有功能，使用方式与原包一致
+1. 本项目将 `react` 和 `react-dom` 标记为外部依赖，使用时需要单独引入
+2. 构建后的包通过 `ReactRouterDom` 全局变量暴露所有导出
+3. 开发模式下会启动本地服务器并监听文件变化
+4. 生产模式下会生成压缩后的代码
 
-## 依赖说明
+## 自定义配置
 
-- @sentry/react: ^10.12.0 - Sentry React 集成库
-- @sentry/browser: ^10.12.0 - Sentry 浏览器 SDK
-- Rollup 相关工具用于构建 UMD 包
+如需修改打包配置，可以编辑 [rollup.config.js](file:///Users/qiuhuibin/projects/react-router-dom-umd/rollup.config.js) 文件：
 
-## 许可证
+- 修改入口文件路径
+- 更改输出文件名和全局变量名
+- 调整 Babel 配置
+- 添加或移除插件
 
-MIT License
+## License
 
-## 贡献
-
-欢迎提交 Issue 和 Pull Request 来改进这个项目。
+MIT
