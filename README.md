@@ -1,10 +1,10 @@
-# React Router DOM UMD Bundle
+# Sentry React UMD Bundle
 
 这是一个将 sentry-react 打包成 UMD 格式的项目，方便在浏览器中通过 `<script>` 标签直接使用。
 
 ## 项目介绍
 
-本项目使用 Rollup 将 sentry-react 及其依赖打包成一个单独的 UMD 文件，可以在不使用 npm 或模块打包工具的情况下直接在浏览器中使用。
+本项目使用 Rollup 将 sentry-react 打包成一个单独的 UMD 文件，可以在不使用 npm 或模块打包工具的情况下直接在浏览器中使用 Sentry 的 React 集成功能。
 
 ## 安装依赖
 
@@ -40,7 +40,7 @@ npm run build
 <!DOCTYPE html>
 <html>
 <head>
-    <title>React Router DOM UMD Example</title>
+    <title>Sentry React UMD Example</title>
 </head>
 <body>
     <div id="root"></div>
@@ -49,34 +49,29 @@ npm run build
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     
-    <!-- 引入打包好的 React Router DOM -->
+    <!-- 引入打包好的 Sentry React -->
     <script src="dist/sentry-react.umd.js"></script>
     
     <!-- 使用 -->
     <script>
-        const { BrowserRouter, Routes, Route, Link } = ReactRouterDom;
+        // 初始化 Sentry
+        SentryReact.init({
+            dsn: 'YOUR_SENTRY_DSN',
+            integrations: [
+                // 可以添加其他集成
+            ],
+            tracesSampleRate: 1.0
+        });
+        
+        // 使用 ErrorBoundary
+        const { ErrorBoundary } = SentryReact;
         
         function App() {
+            // 示例组件
             return React.createElement(
-                BrowserRouter,
-                null,
-                React.createElement(
-                    "div",
-                    null,
-                    React.createElement(
-                        "nav",
-                        null,
-                        React.createElement(Link, { to: "/" }, "Home"),
-                        " | ",
-                        React.createElement(Link, { to: "/about" }, "About")
-                    ),
-                    React.createElement(
-                        Routes,
-                        null,
-                        React.createElement(Route, { path: "/", element: React.createElement("h1", null, "Home Page") }),
-                        React.createElement(Route, { path: "/about", element: React.createElement("h1", null, "About Page") })
-                    )
-                )
+                ErrorBoundary,
+                { fallback: React.createElement('div', null, '发生错误') },
+                React.createElement('h1', null, 'Sentry React UMD 示例')
             );
         }
         
@@ -99,20 +94,20 @@ npm run build
 ## 技术栈
 
 - [Rollup](https://rollupjs.org/) - 模块打包工具
-- [React Router DOM](https://reactrouter.com/) - React 路由库
+- [Sentry React](https://reactrouter.com/) - React 路由库
 - Babel - JavaScript 编译器
 - Terser - JavaScript 压缩工具
 
 ## 注意事项
 
 1. 本项目将 `react` 和 `react-dom` 标记为外部依赖，使用时需要单独引入
-2. 构建后的包通过 `ReactRouterDom` 全局变量暴露所有导出
+2. 构建后的包通过 `SentryReact` 全局变量暴露所有导出
 3. 开发模式下会启动本地服务器并监听文件变化
 4. 生产模式下会生成压缩后的代码
 
 ## 自定义配置
 
-如需修改打包配置，可以编辑 [rollup.config.js](file:///Users/qiuhuibin/projects/sentry-react-umd/rollup.config.js) 文件：
+如需修改打包配置，可以编辑 rollup.config.js 文件：
 
 - 修改入口文件路径
 - 更改输出文件名和全局变量名
