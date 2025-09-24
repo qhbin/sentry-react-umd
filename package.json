@@ -1,8 +1,8 @@
 {
-  "name": "react-router-dom-umd",
+  "name": "sentry-react-umd",
   "version": "1.0.0",
-  "description": "react-router-dom umd library",
-  "main": "dist/react-router-dom.umd.js",
+  "description": "sentry-react umd library",
+  "main": "dist/sentry-react.umd.js",
   "type": "module",
   "scripts": {
     "dev": "NODE_ENV=development rollup -c -w",
@@ -11,12 +11,12 @@
   "author": "qhbin",
   "license": "MIT",
   "keywords": [
-    "react-router-dom",
+    "sentry-react",
     "react",
     "umd"
   ],
   "dependencies": {
-    "react-router-dom": "^7.9.1"
+    "sentry-react": "^7.9.1"
   },
   "devDependencies": {
     "@babel/core": "^7.28.4",

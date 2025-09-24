@@ -1,10 +1,10 @@
 # React Router DOM UMD Bundle
 
-这是一个将 [react-router-dom](file:///Users/qiuhuibin/projects/react-router-dom-umd/node_modules/react-router-dom) 打包成 UMD 格式的项目，方便在浏览器中通过 `<script>` 标签直接使用。
+这是一个将 sentry-react 打包成 UMD 格式的项目，方便在浏览器中通过 `<script>` 标签直接使用。
 
 ## 项目介绍
 
-本项目使用 Rollup 将 [react-router-dom](file:///Users/qiuhuibin/projects/react-router-dom-umd/node_modules/react-router-dom) 及其依赖打包成一个单独的 UMD 文件，可以在不使用 npm 或模块打包工具的情况下直接在浏览器中使用。
+本项目使用 Rollup 将 sentry-react 及其依赖打包成一个单独的 UMD 文件，可以在不使用 npm 或模块打包工具的情况下直接在浏览器中使用。
 
 ## 安装依赖
 
@@ -30,7 +30,7 @@ npm run dev
 npm run build
 ```
 
-构建后的文件将输出到 [dist/react-router-dom.umd.js](file:///Users/qiuhuibin/projects/react-router-dom-umd/dist/react-router-dom.umd.js)。
+构建后的文件将输出到 dist/sentry-react.umd.js。
 
 ## 使用方法
 
@@ -50,7 +50,7 @@ npm run build
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     
     <!-- 引入打包好的 React Router DOM -->
-    <script src="dist/react-router-dom.umd.js"></script>
+    <script src="dist/sentry-react.umd.js"></script>
     
     <!-- 使用 -->
     <script>
@@ -112,7 +112,7 @@ npm run build
 
 ## 自定义配置
 
-如需修改打包配置，可以编辑 [rollup.config.js](file:///Users/qiuhuibin/projects/react-router-dom-umd/rollup.config.js) 文件：
+如需修改打包配置，可以编辑 [rollup.config.js](file:///Users/qiuhuibin/projects/sentry-react-umd/rollup.config.js) 文件：
 
 - 修改入口文件路径
 - 更改输出文件名和全局变量名
